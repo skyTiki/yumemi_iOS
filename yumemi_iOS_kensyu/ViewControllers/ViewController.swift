@@ -11,6 +11,8 @@ import YumemiWeather
 class ViewController: UIViewController {
 
     @IBOutlet weak var weatherImageView: UIImageView!
+    @IBOutlet weak var minTempLabel: UILabel!
+    @IBOutlet weak var maxTempLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,37 +21,54 @@ class ViewController: UIViewController {
     // reloadボタンタップ
     @IBAction func tappedReloadButton(_ sender: Any) {
         
-        let exampleArea = "tokyo"
+        let exampleArea = """
+            {"area": "tokyo", "date": "2020-04-01T12:00:00+09:00"}
+            """
         
         switch fetchWether(at: exampleArea) {
         case let .success(weather):
-            weatherImageView.image = weather.image
-            
+            setUIWeatherData(weather: weather)
         case let .failure(error):
             presentYumemiWeatherAPIAleart(message: error.description)
         }
     }
     
-    private func fetchWether(at area: String) -> Result<Weather, FetchWeatherError> {
+    // 天気データ取得
+    private func fetchWether(at requestJsonString: String) -> Result<Weather, FetchWeatherError> {
         
-        let weatherString: String
-        
+        // JSON取得
+        let responseJsonString: String
         do {
-            weatherString = try YumemiWeather.fetchWeather(at: area)
+            responseJsonString = try YumemiWeather.syncFetchWeather(requestJsonString)
         } catch let error as YumemiWeatherError {
             return .failure(.apiError(error))
         } catch {
             return .failure(.unkownError)
         }
         
-        if let weather = Weather(rawValue: weatherString) {
+        // JSONデコード
+        let weather: Weather
+        // データ化
+        guard let weatherJsonData = responseJsonString.data(using: .utf8) else { return  .failure(.apiError(.jsonDecodeError))}
+        
+        do {
+            weather = try JSONDecoder().decode(Weather.self, from: weatherJsonData)
             return .success(weather)
-        } else {
-            return .failure(.unkownError)
+        } catch  {
+            return .failure(.apiError(.jsonDecodeError))
         }
         
     }
     
+    private func setUIWeatherData(weather: Weather) {
+        weatherImageView.image = WeatherPattern(rawValue: weather.weather)?.image
+        minTempLabel.text = "\(weather.minTemp)"
+        maxTempLabel.text = "\(weather.maxTemp)"
+        
+    }
+    
+    
+    // アラート出力処理
     private func presentYumemiWeatherAPIAleart(message: String) {
         let aleart = UIAlertController(title: "天気取得エラー", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)

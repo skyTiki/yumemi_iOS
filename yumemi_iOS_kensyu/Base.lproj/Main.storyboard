@@ -24,26 +24,26 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTT-C2-qzf">
-                                <rect key="frame" x="103.5" y="555.5" width="103.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="103.5" y="555.5" width="103.5" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" name="Blue"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y8N-8a-eI8">
-                                <rect key="frame" x="207" y="555.5" width="103.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="207" y="555.5" width="103.5" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" name="Red"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vma-Sk-Fkb">
-                                <rect key="frame" x="235.5" y="656.5" width="47" height="30"/>
+                                <rect key="frame" x="235.5" y="661" width="47" height="30"/>
                                 <state key="normal" title="Reload"/>
                                 <connections>
                                     <action selector="tappedReloadButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ybG-JY-Qwv"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9x-yc-fB8">
-                                <rect key="frame" x="136" y="656.5" width="39" height="30"/>
+                                <rect key="frame" x="136" y="661" width="39" height="30"/>
                                 <state key="normal" title="Close"/>
                             </button>
                         </subviews>
@@ -66,6 +66,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="maxTempLabel" destination="y8N-8a-eI8" id="Ee0-uA-CuY"/>
+                        <outlet property="minTempLabel" destination="OTT-C2-qzf" id="5h2-kO-QAS"/>
                         <outlet property="weatherImageView" destination="91L-Ea-I6i" id="xn8-PI-dyV"/>
                     </connections>
                 </viewController>

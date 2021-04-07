@@ -7,13 +7,13 @@
 
 import UIKit
 
-enum Weather: String {
+enum WeatherPattern: String {
     case sunny,cloudy,rainy
 }
 
-extension Weather {
+extension WeatherPattern {
     var image: UIImage {
-        if let weather = Weather.init(rawValue: rawValue) {
+        if let weather = WeatherPattern.init(rawValue: rawValue) {
             switch weather {
             case .sunny:
                 return UIImage(named: "iconmonstr-weather-1.pdf")!.withTintColor(.systemRed)
@@ -29,3 +29,16 @@ extension Weather {
     }
 }
 
+struct Weather: Codable {
+    let weather: String
+    let maxTemp: Int
+    let minTemp: Int
+    let date: String
+    
+    enum CodingKeys: String, CodingKey {
+        case weather
+        case maxTemp = "max_temp"
+        case minTemp = "min_temp"
+        case date
+    }
+}
