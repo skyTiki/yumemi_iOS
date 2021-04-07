@@ -19,20 +19,35 @@ class ViewController: UIViewController {
     // reloadボタンタップ
     @IBAction func tappedReloadButton(_ sender: Any) {
         
-        do {
-            let nowWeather = try YumemiWeather.fetchWeather(at: "")
-            if let weather = Weather.init(rawValue: nowWeather) {
-                weatherImageView.image = weather.image
-            }
-        } catch YumemiWeatherError.invalidParameterError {
-            presentYumemiWeatherAPIAleart(message: "パラメータが誤っております。")
-        } catch YumemiWeatherError.jsonDecodeError {
-            presentYumemiWeatherAPIAleart(message: "JSONの変換に失敗しました。")
-        } catch YumemiWeatherError.unknownError {
-            presentYumemiWeatherAPIAleart(message: "天気情報取得で予期せぬエラーが発生しました。")
-        } catch {
-            presentYumemiWeatherAPIAleart(message: "予期せぬエラーが発生しました。")
+        let exampleArea = "tokyo"
+        
+        switch fetchWether(at: exampleArea) {
+        case let .success(weather):
+            weatherImageView.image = weather.image
+            
+        case let .failure(error):
+            presentYumemiWeatherAPIAleart(message: error.description)
         }
+    }
+    
+    private func fetchWether(at area: String) -> Result<Weather, FetchWeatherError> {
+        
+        let weatherString: String
+        
+        do {
+            weatherString = try YumemiWeather.fetchWeather(at: area)
+        } catch let error as YumemiWeatherError {
+            return .failure(.apiError(error))
+        } catch {
+            return .failure(.unkownError)
+        }
+        
+        if let weather = Weather(rawValue: weatherString) {
+            return .success(weather)
+        } else {
+            return .failure(.unkownError)
+        }
+        
     }
     
     private func presentYumemiWeatherAPIAleart(message: String) {
