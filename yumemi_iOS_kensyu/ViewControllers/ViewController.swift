@@ -54,8 +54,10 @@ class ViewController: UIViewController {
         do {
             weather = try JSONDecoder().decode(Weather.self, from: weatherJsonData)
             return .success(weather)
-        } catch  {
-            return .failure(.apiError(.jsonDecodeError))
+        } catch let error as YumemiWeatherError {
+            return .failure(.apiError(error))
+        } catch {
+            return .failure(.unkownError)
         }
         
     }
