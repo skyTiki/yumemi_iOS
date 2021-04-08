@@ -14,6 +14,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var minTempLabel: UILabel!
     @IBOutlet weak var maxTempLabel: UILabel!
     
+    private let dateformatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        return formatter
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -21,22 +28,34 @@ class ViewController: UIViewController {
     // reloadボタンタップ
     @IBAction func tappedReloadButton(_ sender: Any) {
         
-        let exampleArea = """
-            {"area": "tokyo", "date": "2020-04-01T12:00:00+09:00"}
-            """
+        let exampleArea: WetherRequest = .init(area: "tokyo", date: Date())
         
-        switch fetchWether(at: exampleArea) {
+        switch fetchWether(wetherRequest: exampleArea) {
         case let .success(weather):
             setUIWeatherData(weather: weather)
+            
         case let .failure(error):
             presentYumemiWeatherAPIAleart(message: error.description)
         }
     }
     
     // 天気データ取得
-    private func fetchWether(at requestJsonString: String) -> Result<Weather, FetchWeatherError> {
+    private func fetchWether(wetherRequest: WetherRequest) -> Result<Weather, FetchWeatherError> {
         
-        // JSON取得
+        // リクエスト用Jsonエンコード
+        let requestJson: Data
+        let jsonEncoder = JSONEncoder()
+        jsonEncoder.dateEncodingStrategy = .formatted(dateformatter)
+        
+        // 構造体→JSON形式
+        do {
+            requestJson = try jsonEncoder.encode(wetherRequest)
+        } catch {
+            return .failure(FetchWeatherError.WeatherAppError(.JSONEncodeError))
+        }
+        // JSON→文字列
+        guard let requestJsonString = String(data: requestJson, encoding: .utf8) else { return .failure(FetchWeatherError.WeatherAppError(.JSONEncodeError))}
+        
         let responseJsonString: String
         do {
             responseJsonString = try YumemiWeather.syncFetchWeather(requestJsonString)

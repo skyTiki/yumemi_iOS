@@ -42,3 +42,8 @@ struct Weather: Codable {
     }
     
 }
+
+struct WetherRequest: Codable {
+    let area: String
+    var date: Date
+}

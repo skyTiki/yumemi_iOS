@@ -10,6 +10,7 @@ import YumemiWeather
 
 enum FetchWeatherError: Error {
     case apiError(YumemiWeatherError)
+    case WeatherAppError(WeatherAppError)
     case unkownError
     
     var description: String {
@@ -17,9 +18,16 @@ enum FetchWeatherError: Error {
         case .apiError(.invalidParameterError):
             return "パラメータに不正があります。"
         case .apiError(.jsonDecodeError):
-            return "JSONデータの変換に失敗しました。"
+            return "JSONデータのデコード処理に失敗しました。"
         case .apiError(.unknownError), .unkownError:
             return "予期せぬエラーが発生しました。"
+        case .WeatherAppError(.JSONEncodeError):
+            return "JSONのエンコード処理に失敗しました。"
+            
         }
     }
+}
+
+enum WeatherAppError: Error {
+    case JSONEncodeError
 }
