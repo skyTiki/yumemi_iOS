@@ -24,10 +24,8 @@ struct Weather: Codable {
         case date
     }
     
-    var weatherPattern: WeatherPattern {
-        if let weatherPattern = WeatherPattern(rawValue: weather) {
-            return weatherPattern
-        } else { fatalError("WeatherPatternへの変換で失敗しました。") }
+    var weatherPattern: WeatherPattern? {
+        WeatherPattern(rawValue: weather)
     }
     
     var image: UIImage {
@@ -38,6 +36,8 @@ struct Weather: Codable {
             return UIImage(named: "iconmonstr-weather-11.pdf")!.withTintColor(.systemGray)
         case .rainy:
             return UIImage(named: "iconmonstr-umbrella-1.pdf")!.withTintColor(.systemBlue)
+        case .none:
+            return UIImage()
         }
     }
     
