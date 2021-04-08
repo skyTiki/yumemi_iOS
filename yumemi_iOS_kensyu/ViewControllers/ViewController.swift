@@ -63,7 +63,7 @@ class ViewController: UIViewController {
     }
     
     private func setUIWeatherData(weather: Weather) {
-        weatherImageView.image = WeatherPattern(rawValue: weather.weather)?.image
+        weatherImageView.image = weather.image
         minTempLabel.text = "\(weather.minTemp)"
         maxTempLabel.text = "\(weather.maxTemp)"
         

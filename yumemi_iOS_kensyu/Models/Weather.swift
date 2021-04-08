@@ -9,17 +9,6 @@ import UIKit
 
 enum WeatherPattern: String {
     case sunny,cloudy,rainy
-    
-    var image: UIImage {
-        switch self {
-        case .sunny:
-            return UIImage(named: "iconmonstr-weather-1.pdf")!.withTintColor(.systemRed)
-        case .cloudy:
-            return UIImage(named: "iconmonstr-weather-11.pdf")!.withTintColor(.systemGray)
-        case .rainy:
-            return UIImage(named: "iconmonstr-umbrella-1.pdf")!.withTintColor(.systemBlue)
-        }
-    }
 }
 
 struct Weather: Codable {
@@ -34,4 +23,22 @@ struct Weather: Codable {
         case minTemp = "min_temp"
         case date
     }
+    
+    var weatherPattern: WeatherPattern {
+        if let weatherPattern = WeatherPattern(rawValue: weather) {
+            return weatherPattern
+        } else { fatalError("WeatherPatternへの変換で失敗しました。") }
+    }
+    
+    var image: UIImage {
+        switch weatherPattern {
+        case .sunny:
+            return UIImage(named: "iconmonstr-weather-1.pdf")!.withTintColor(.systemRed)
+        case .cloudy:
+            return UIImage(named: "iconmonstr-weather-11.pdf")!.withTintColor(.systemGray)
+        case .rainy:
+            return UIImage(named: "iconmonstr-umbrella-1.pdf")!.withTintColor(.systemBlue)
+        }
+    }
+    
 }
