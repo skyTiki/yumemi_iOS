@@ -16,6 +16,7 @@
 		A1C47569261D742D004BC389 /* YumemiWeather in Frameworks */ = {isa = PBXBuildFile; productRef = A1C47568261D742D004BC389 /* YumemiWeather */; };
 		A1C4756E261D7D8F004BC389 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C4756D261D7D8F004BC389 /* Weather.swift */; };
 		A1DC6D79261D871D00EC34E0 /* FetchWeatherError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DC6D78261D871D00EC34E0 /* FetchWeatherError.swift */; };
+		A1DC6D7F261EC35B00EC34E0 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DC6D7E261EC35B00EC34E0 /* RootViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		A1C47560261D73E5004BC389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1C4756D261D7D8F004BC389 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		A1DC6D78261D871D00EC34E0 /* FetchWeatherError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchWeatherError.swift; sourceTree = "<group>"; };
+		A1DC6D7E261EC35B00EC34E0 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 		A1C4756B261D7D73004BC389 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A1DC6D7E261EC35B00EC34E0 /* RootViewController.swift */,
 				A1C47556261D73E3004BC389 /* ViewController.swift */,
 			);
 			path = ViewControllers;
@@ -178,6 +181,7 @@
 				A1C4756E261D7D8F004BC389 /* Weather.swift in Sources */,
 				A1DC6D79261D871D00EC34E0 /* FetchWeatherError.swift in Sources */,
 				A1C47557261D73E3004BC389 /* ViewController.swift in Sources */,
+				A1DC6D7F261EC35B00EC34E0 /* RootViewController.swift in Sources */,
 				A1C47553261D73E3004BC389 /* AppDelegate.swift in Sources */,
 				A1C47555261D73E3004BC389 /* SceneDelegate.swift in Sources */,
 			);

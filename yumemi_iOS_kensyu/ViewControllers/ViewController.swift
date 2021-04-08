@@ -25,9 +25,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        reloadWether()
+    }
+    
     // reloadボタンタップ
     @IBAction func tappedReloadButton(_ sender: Any) {
+        reloadWether()
+    }
         
+    private func reloadWether() {
         let exampleArea: WetherRequest = .init(area: "tokyo", date: Date())
         
         switch fetchWether(wetherRequest: exampleArea) {
@@ -97,6 +104,10 @@ class ViewController: UIViewController {
         aleart.addAction(okAction)
         
         present(aleart, animated: true, completion: nil)
+    }
+    
+    @IBAction func tappedCloseButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
