@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadWether), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -34,7 +36,7 @@ class ViewController: UIViewController {
         reloadWether()
     }
         
-    private func reloadWether() {
+    @objc private func reloadWether() {
         let exampleArea: WetherRequest = .init(area: "tokyo", date: Date())
         
         switch fetchWether(wetherRequest: exampleArea) {
